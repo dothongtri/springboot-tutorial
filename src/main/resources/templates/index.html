@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+<title>Spring Boot</title>
+</head>
+<body>
+    <div th:replace="common/header :: header"></div>
+<h1 th:text="#{employee.list}">aaa</h1>
+<h2 th:text="${msg}">bbbbbbbbbbb</h2>
+<a th:href="@{/employees}">Danh sách nhân viên</a>
+    <div th:replace="common/footer :: footer"></div>
+</body>
+</html>
