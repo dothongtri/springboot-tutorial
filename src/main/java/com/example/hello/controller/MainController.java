@@ -29,30 +29,29 @@ public class MainController {
 	@Autowired
 	private MessageSource messageSource;
 
-	// public static List<CreateEmployeeDTO> employees = new ArrayList<>(Arrays.asList(
-	// 		new CreateEmployeeDTO(1, "John Doe", 30),
-	// 		new CreateEmployeeDTO(2, "Jane Smith", 25),
-	// 		new CreateEmployeeDTO(3, "Mike Johnson", 35)));
+	public static List<CreateEmployeeDTO> employees = new ArrayList<>(Arrays.asList(
+			new CreateEmployeeDTO("John Doe", 30),
+			new CreateEmployeeDTO("Jane Smith", 25),
+			new CreateEmployeeDTO("Mike Johnson", 35)));
 
-	// @GetMapping(value = "/")
-	// public String home(HttpServletRequest request) {
+	@GetMapping(value = "/")
+	public String home(HttpServletRequest request) {
 
-	// 	request.setAttribute("msg", messageSource.getMessage("my.greeting", null, null));
-	// 	return "index";
-	// }
+		request.setAttribute("msg", messageSource.getMessage("my.greeting", null, null));
+		return "index";
+	}
 
-	// @GetMapping(value = "/employees")
-	// public String hello(HttpServletRequest request, Model model) {
-	// 	request.setAttribute("employees", employees);
-	// 	model.addAttribute("employee", new CreateEmployeeDTO("demo", 20));
-	// 	return "employee";
-	// }
+	@GetMapping(value = "/employees")
+	public String hello(HttpServletRequest request, Model model) {
+		request.setAttribute("employees", employees);
+		model.addAttribute("employee", new CreateEmployeeDTO("demo", 20));
+		return "employee";
+	}
 
-	// @PostMapping(value = "/employee1")
-	// public String addEmployee(HttpServletRequest request, @ModelAttribute("employee1") CreateEmployeeDTO employee1, BindingResult result) {
-	// 	employee1.setId(employees.size() + 1);
-	// 	employees.add(employee1);
-	// 	return "redirect:/employees";
-	// }
+	@PostMapping(value = "/employee1")
+	public String addEmployee(HttpServletRequest request, @ModelAttribute("employee1") CreateEmployeeDTO employee1, BindingResult result) {
+		employees.add(employee1);
+		return "redirect:/employees";
+	}
 	
 }
