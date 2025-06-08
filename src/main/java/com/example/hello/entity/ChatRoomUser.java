@@ -36,7 +36,7 @@ public class ChatRoomUser implements Serializable{
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @Column(name = "joined_at", nullable = false)
-    private LocalDateTime joinedAt;
+    @Column(name = "joined_at")
+    private LocalDateTime joinedAt = LocalDateTime.now();
     
 }

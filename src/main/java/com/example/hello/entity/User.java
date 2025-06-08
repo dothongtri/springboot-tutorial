@@ -3,13 +3,13 @@ package com.example.hello.entity;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 
-import org.springframework.data.annotation.Id;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -29,18 +29,21 @@ public class User  implements Serializable{
     @Column(name = "username", nullable = false)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = "password")
     private String password;
 
     @Column(name = "email", nullable = false)
     private String email;
 
-    @Column(name = "status", nullable = false)
-    private Boolean status;
+    @Column(name = "provider")
+    private String provider = "local";
+
+    @Column(name = "status")
+    private Boolean status = false;
 
     @Column(name = "avatar_url")
     private String avatar_url;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
 }

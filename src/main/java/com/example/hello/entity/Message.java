@@ -49,13 +49,13 @@ public class Message implements Serializable {
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private String type;
+    private MessageType type;
 
     @ManyToOne
     @JoinColumn(name = "reply_to_user_id", nullable = true)
     private User replyToUser;
 
-    @Column(name = "sent_at", nullable = false)
-    private LocalDateTime sentAt;
+    @Column(name = "sent_at")
+    private LocalDateTime sentAt = LocalDateTime.now();
 
 }

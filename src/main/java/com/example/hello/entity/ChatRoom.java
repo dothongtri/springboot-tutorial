@@ -37,7 +37,7 @@ public class ChatRoom implements Serializable{
     @Column(name = "is_group_chat", nullable = false)
     private Boolean isGroupChat;
 
-    @Column(name = "created_at", nullable = false)
-    private LocalDateTime createdAt;
+    @Column(name = "created_at")
+    private LocalDateTime createdAt = LocalDateTime.now();
 
 }
