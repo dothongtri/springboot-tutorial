@@ -41,7 +41,11 @@ public class Message implements Serializable {
     private User sender;
 
     @ManyToOne
-    @JoinColumn(name = "chat_room_id", nullable = false)
+    @JoinColumn(name = "receiver_id")
+    private User receiver;
+
+    @ManyToOne
+    @JoinColumn(name = "chat_room_id")
     private ChatRoom chatRoom;
 
     @Column(name = "content", nullable = false)
@@ -49,10 +53,10 @@ public class Message implements Serializable {
 
     @Enumerated(value = EnumType.STRING)
     @Column(name = "type", nullable = false)
-    private MessageType type;
+    private MessageType type = MessageType.TEXT;
 
     @ManyToOne
-    @JoinColumn(name = "reply_to_user_id", nullable = true)
+    @JoinColumn(name = "reply_to_user_id")
     private User replyToUser;
 
     @Column(name = "sent_at")
