@@ -10,7 +10,10 @@ public class HelloApplication {
 
 	public static void main(String[] args) {
 		// Load .env file
-        Dotenv dotenv = Dotenv.configure().load();
+        Dotenv dotenv = Dotenv.configure()
+        .directory("backend/hello") // hoặc nơi chứa file .env
+                      .filename(".env")
+                      .load();
         dotenv.entries().forEach(entry -> {
             System.setProperty(entry.getKey(), entry.getValue());
         });

@@ -40,6 +40,7 @@ public class SecurityConfig {
                                 "/v3/api-docs/**", // Swagger JSON API
                                 "/swagger-ui/**", // static resources
                                 "/swagger-ui.html" // trang chính Swagger
+                                ,"/ws-chat/**" // cho phép truy cập WebSocket
                         ).permitAll()
                         .anyRequest().authenticated() // các request còn lại yêu cầu login
                 )

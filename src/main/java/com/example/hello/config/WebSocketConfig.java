@@ -20,14 +20,21 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
     @Autowired
     private JwtUserHandshakeHandler jwtUserHandshakeHandler;
 
+    // Constructor injection thay vì @Autowired
+    public WebSocketConfig(JwtHandshakeInterceptor jwtHandshakeInterceptor, 
+                          JwtUserHandshakeHandler jwtUserHandshakeHandler) {
+        this.jwtHandshakeInterceptor = jwtHandshakeInterceptor;
+        this.jwtUserHandshakeHandler = jwtUserHandshakeHandler;
+    }
+
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry) {
+         System.out.println("⚡ registerStompEndpoints được gọi!");
         registry
             .addEndpoint("/ws-chat")
             .setHandshakeHandler(jwtUserHandshakeHandler)
             .addInterceptors(jwtHandshakeInterceptor)
-            .setAllowedOriginPatterns("*")
-            .withSockJS();
+            .setAllowedOriginPatterns("*");
     }
 
     @Override

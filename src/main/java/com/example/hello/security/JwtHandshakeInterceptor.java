@@ -20,10 +20,11 @@ public class JwtHandshakeInterceptor implements HandshakeInterceptor {
     @Override
     public boolean beforeHandshake(ServerHttpRequest request, ServerHttpResponse response,
                                    WebSocketHandler wsHandler, Map<String, Object> attributes) throws Exception {
-        if (request instanceof ServletServerHttpRequest servletRequest) {
+        
+                                    if (request instanceof ServletServerHttpRequest servletRequest) {
             HttpServletRequest httpReq = servletRequest.getServletRequest();
             String authHeader = httpReq.getHeader("Authorization");
-
+System.out.println("==================Authorization Header: " + authHeader);
             if (authHeader != null && authHeader.startsWith("Bearer ")) {
                 String token = authHeader.substring(7);
                 String username = jwtUtil.extractUsername(token);
