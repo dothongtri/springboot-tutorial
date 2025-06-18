@@ -52,7 +52,7 @@ public class Message implements Serializable {
     private String content;
 
     @Enumerated(value = EnumType.STRING)
-    @Column(name = "type", nullable = false)
+    @Column(name = "type")
     private MessageType type = MessageType.TEXT;
 
     @ManyToOne

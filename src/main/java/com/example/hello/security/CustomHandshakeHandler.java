@@ -9,11 +9,12 @@ import java.security.Principal;
 import java.util.Map;
 
 @Component
-public class JwtUserHandshakeHandler extends DefaultHandshakeHandler {
+public class CustomHandshakeHandler extends DefaultHandshakeHandler {
+
     @Override
     protected Principal determineUser(ServerHttpRequest request, WebSocketHandler wsHandler,
-                                      Map<String, Object> attributes) {
-        String username = (String) attributes.get("username");
-        return () -> username;
+            Map<String, Object> attributes) {
+        // Lấy user đã được set trong interceptor
+        return () -> attributes.get("user").toString();
     }
 }

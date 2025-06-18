@@ -8,12 +8,11 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 public class UserResponse {
+    private Long id;
 
     private String username;
 
     private String email;
-
-    private Boolean status;
 
     private String avatar_url;
 }

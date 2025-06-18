@@ -1,12 +1,9 @@
 package com.example.hello.service;
 
-import java.util.List;
 import java.util.Optional;
 
-import com.example.hello.dto.AuthRequest;
 import com.example.hello.dto.AuthResponse;
 import com.example.hello.dto.UserRequest;
-import com.example.hello.dto.UserResponse;
 import com.example.hello.entity.User;
 
 public interface UserService {
@@ -19,7 +16,7 @@ public interface UserService {
 
     Optional<User> getUserById(Long id); // Lấy thông tin 1 user
 
-    List<UserResponse> getAllUsers(); // Lấy danh sách tất cả user
+    // List<UserResponse> getAllUsers(); // Lấy danh sách tất cả user
 
     Optional<User> findByUsername(String username); // Tìm user theo username
 

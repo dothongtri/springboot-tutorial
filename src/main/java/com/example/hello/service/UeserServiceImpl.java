@@ -2,14 +2,11 @@ package com.example.hello.service;
 
 import java.security.GeneralSecurityException;
 import java.util.Collections;
-import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -18,7 +15,6 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import com.example.hello.dto.AuthRequest;
 import com.example.hello.dto.AuthResponse;
 import com.example.hello.dto.UserRequest;
 import com.example.hello.dto.UserResponse;
@@ -90,16 +86,17 @@ public class UeserServiceImpl implements UserService {
         throw new UnsupportedOperationException("Unimplemented method 'getUserById'");
     }
 
-    @Override
-    public List<UserResponse> getAllUsers() {
-        List<User> users = userRepository.findAll();
-        // Chuyển đổi từ List<User> → List<UserResponse>
-        List<UserResponse> responseList = users.stream().map(
-                user -> new UserResponse(user.getUsername(), user.getEmail(), user.getStatus(), user.getAvatar_url()))
-                .collect(Collectors.toList());
+    // @Override
+    // public List<UserResponse> getAllUsers() {
+    // List<User> users = userRepository.findAll();
+    // // Chuyển đổi từ List<User> → List<UserResponse>
+    // List<UserResponse> responseList = users.stream().map(
+    // user -> new UserResponse(user.getUsername(), user.getEmail(),
+    // user.getStatus(), user.getAvatar_url()))
+    // .collect(Collectors.toList());
 
-        return responseList;
-    }
+    // return responseList;
+    // }
 
     @Override
     public Optional<User> findByUsername(String username) {
@@ -119,7 +116,11 @@ public class UeserServiceImpl implements UserService {
 
         final UserDetails userDetails = userDetailsService.loadUserByUsername(email);
         final String token = jwtUtil.generateToken(userDetails);
-        return new AuthResponse(token);
+        Optional<User> optionalUser = userRepository.findByEmail(email);
+        User user = optionalUser.get();
+        UserResponse userResponse = new UserResponse(user.getId(), user.getUsername(), user.getEmail(),
+                user.getAvatar_url());
+        return new AuthResponse(token, userResponse);
     }
 
     @Override
@@ -158,9 +159,11 @@ public class UeserServiceImpl implements UserService {
             userRepository.save(user);
         }
         final UserDetails userDetails = userDetailsService.loadUserByUsername(user.getEmail());
+        UserResponse userResponse = new UserResponse(user.getId(), user.getUsername(), user.getEmail(),
+                user.getAvatar_url());
         // Tạo JWT nội bộ trả về
         String token = jwtUtil.generateToken(userDetails);
-        return new AuthResponse(token);
+        return new AuthResponse(token, userResponse);
     }
 
     @Override
