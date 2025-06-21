@@ -34,19 +34,19 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .csrf(csrf -> csrf.disable())
+                .httpBasic(httpBasic -> httpBasic.disable())
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 "/api/auth/**", // cho phép login, register
                                 "/v3/api-docs/**", // Swagger JSON API
                                 "/swagger-ui/**", // static resources
                                 "/swagger-ui.html" // trang chính Swagger
-                                ,"/ws-chat/**" // cho phép truy cập WebSocket
+                                , "/ws-chat/**" // cho phép truy cập WebSocket
                         ).permitAll()
                         .anyRequest().authenticated() // các request còn lại yêu cầu login
                 )
                 .sessionManagement(session -> session
-                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
-                        )
+                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

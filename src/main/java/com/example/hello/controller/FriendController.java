@@ -11,17 +11,18 @@ import org.springframework.web.bind.annotation.RestController;
 
 import com.example.hello.dto.FriendResponse;
 import com.example.hello.service.FriendshipService;
+import com.example.hello.service.MessageService;
 
 @RestController
 @RequestMapping("/api/friend")
 public class FriendController {
 
     @Autowired
-    private FriendshipService friendshipService;
+    private MessageService messageService;
 
     @GetMapping("/{userId}/list")
     public ResponseEntity<List<FriendResponse>> getFriends(@PathVariable Long userId) {
-        List<FriendResponse> friends = friendshipService.getFriends(userId);
+        List<FriendResponse> friends = messageService.findConversationsWithLastMessage(userId);
         return ResponseEntity.ok(friends);
     }
 
